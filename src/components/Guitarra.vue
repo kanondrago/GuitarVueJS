@@ -1,13 +1,14 @@
 <script setup>
 
-    // Macro --> no requieren importarse
+    // Macro --> Props => del Padre al hijo
     const props = defineProps({
         guitarrax: {
             type: Object,
             required: true,
         }
     })
-    
+    // Macro --> Emit => del Hijo al Padre
+    defineEmits(['agregar-carrito'])
 
 </script>
 
@@ -23,7 +24,8 @@
             <p class="fw-black text-primary fs-3">$ {{ guitarrax.precio }}</p>
             <button 
                 type="button"
-                class="btn btn-dark w-100 "
+                class="btn btn-dark w-100"
+                v-on:click="$emit('agregar-carrito', guitarrax)"
             >Agregar al Carrito</button>
         </div>
     </div>

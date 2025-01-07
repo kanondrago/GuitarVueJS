@@ -5,12 +5,20 @@
 
   import Header from './components/Header.vue';
   import Guitarra from './components/Guitarra.vue';
+  import Footer from './components/Footer.vue';
 
   const guitarras = ref([]);
+  const carrito = ref([]);
   
   onMounted( () => {
     guitarras.value = db;
   })
+
+  const agregarCarrito = (guitarra) => {
+    guitarra.cantidad = 1;
+    carrito.value.push(guitarra);
+    console.log(carrito.value);
+  }
   
 
 </script>
@@ -26,16 +34,13 @@
           <Guitarra 
             :key="guitarra.id"
             v-for="guitarra in guitarras"
-            v-bind:guitarrax="guitarra"> 
+            v-bind:guitarrax="guitarra"
+            v-on:agregar-carrito="agregarCarrito"> 
           </Guitarra>
         </div>
 
     </main>
 
-    <footer class="bg-dark mt-5 py-5">
-        <div class="container-xl">
-            <p class="text-white text-center fs-4 mt-4 m-md-0">GuitarLA - Todos los derechos Reservados</p>
-        </div>
-    </footer>
+    <Footer></Footer>
 
 </template>
