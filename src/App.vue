@@ -25,7 +25,10 @@
 
 <template>
 
-    <Header></Header>
+    <Header
+      v-bind:carrito="carrito">
+
+    </Header>
 
     <main class="container-xl mt-5">
         <h2 class="text-center">Nuestra Colección</h2>
