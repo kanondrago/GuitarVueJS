@@ -9,9 +9,13 @@
 
   const guitarras = ref([]);
   const carrito = ref([]);
+  const guitarra = ref({});
   
   onMounted( () => {
     guitarras.value = db;
+
+    // definiendo un objeto en especifico
+    guitarra.value = db[3];
   })
 
   const agregarCarrito = (guitarra) => {
@@ -19,7 +23,9 @@
     const productoIndex = carrito.value.findIndex(producto => producto.id === guitarra.id);
 
     if(productoIndex>=0) {
-      carrito.value[productoIndex].cantidad++;
+      if(carrito.value[productoIndex].cantidad<5){
+        carrito.value[productoIndex].cantidad++;
+      }
     } else {
       guitarra.cantidad = 1;
       carrito.value.push(guitarra);
@@ -27,15 +33,40 @@
 
     console.log(carrito.value);
   }
-  
+
+  const aumentarCantidad = (id) => {
+    const productoIndex = carrito.value.findIndex(producto => producto.id === id);
+    const cantidadGuitarras = carrito.value[productoIndex].cantidad;
+    if(cantidadGuitarras < 5) {
+      carrito.value[productoIndex].cantidad++;
+    }
+  }
+
+  const disminuirCantidad = (id) => {
+    const productoIndex = carrito.value.findIndex(producto => producto.id === id);
+    const cantidadGuitarras = carrito.value[productoIndex].cantidad;
+    if(cantidadGuitarras > 1) {
+      carrito.value[productoIndex].cantidad--;
+    } 
+  }
+
+  const eliminarGuitarra = (id) => {
+    const productoIndex = carrito.value.findIndex(producto => producto.id === id);
+    carrito.value.splice(productoIndex, 1);
+  }
 
 </script>
 
 <template>
 
     <Header
-      v-bind:carrito="carrito">
-
+      v-bind:carrito="carrito"
+      v-bind:guitarra="guitarra"
+      v-on:aumentar-cantidad="aumentarCantidad"
+      v-on:disminuir-cantidad="disminuirCantidad"
+      v-on:eliminar-guitarra="eliminarGuitarra"
+      v-on:agregar-carrito="agregarCarrito"
+      >
     </Header>
 
     <main class="container-xl mt-5">
