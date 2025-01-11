@@ -15,8 +15,16 @@
   })
 
   const agregarCarrito = (guitarra) => {
-    guitarra.cantidad = 1;
-    carrito.value.push(guitarra);
+
+    const productoIndex = carrito.value.findIndex(producto => producto.id === guitarra.id);
+
+    if(productoIndex>=0) {
+      carrito.value[productoIndex].cantidad++;
+    } else {
+      guitarra.cantidad = 1;
+      carrito.value.push(guitarra);
+    }
+
     console.log(carrito.value);
   }
   
