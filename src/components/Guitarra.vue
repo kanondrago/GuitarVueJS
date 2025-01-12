@@ -16,7 +16,7 @@
 
     <div class="col-md-6 col-lg-4 my-4 row align-items-center">
         <div class="col-4">
-            <img class="img-fluid" v-bind:src="`../../public/img/${guitarrax.imagen}.jpg`" v-bind:alt="`imagen guitarra: ${guitarrax.nombre}`">
+            <img class="img-fluid" v-bind:src="`/img/${guitarrax.imagen}.jpg`" v-bind:alt="`imagen guitarra: ${guitarrax.nombre}`">
         </div>
         <div class="col-8">
             <h3 class="text-black fs-4 fw-bold text-uppercase">{{guitarrax.nombre}}</h3>
