@@ -55,6 +55,10 @@
     carrito.value.splice(productoIndex, 1);
   }
 
+  const vaciarCarrito = () => {
+    carrito.value = [];
+  }
+
 </script>
 
 <template>
@@ -66,6 +70,7 @@
       v-on:disminuir-cantidad="disminuirCantidad"
       v-on:eliminar-guitarra="eliminarGuitarra"
       v-on:agregar-carrito="agregarCarrito"
+      @vaciar-carrito="vaciarCarrito"
       >
     </Header>
 

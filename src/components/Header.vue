@@ -1,5 +1,7 @@
 <script setup>
 
+    import { computed } from 'vue';
+
     const props = defineProps({
         carrito: {
             type: Array,
@@ -11,8 +13,15 @@
         }
     })
 
-    defineEmits(['aumentar-cantidad', 'disminuir-cantidad', 'eliminar-guitarra', 'agregar-carrito']);
+    defineEmits(['aumentar-cantidad', 'disminuir-cantidad', 'eliminar-guitarra', 'agregar-carrito', 'vaciar-carrito']);
 
+    // computed properties --> siempre tiene un return
+    const totalPagar = computed(() => {
+        console.log('computed')
+        return props.carrito.reduce((total, producto) => {
+            return (total + producto.precio*producto.cantidad);
+        }, 0)
+    })
 
 </script>
 
@@ -85,8 +94,12 @@
                                     </tbody>
                                 </table>
 
-                                <p class="text-end">Total pagar: <span class="fw-bold">$899</span></p>
-                                <button class="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                                <p class="text-end">Total pagar: <span class="fw-bold">${{totalPagar}}</span></p>
+                                <button 
+                                    class="btn btn-dark w-100 mt-3 p-2"
+                                    v-on:click="$emit('vaciar-carrito')"
+                                >Vaciar Carrito
+                                </button>
                             </div>
                         </div>
                     </div>
