@@ -1,7 +1,7 @@
 <script setup>
 
-  import {ref, reactive, onMounted} from 'vue';
-  import {db} from './data/guitarras'
+  import { ref, reactive, onMounted, watch } from 'vue';
+  import { db } from './data/guitarras'
 
   import Header from './components/Header.vue';
   import Guitarra from './components/Guitarra.vue';
@@ -10,6 +10,14 @@
   const guitarras = ref([]);
   const carrito = ref([]);
   const guitarra = ref({});
+
+  // Implementación de un watch
+  // Esta escuchando cierta funcion o cierto state y cuando cambie, entonces manda a llamar a una función. 
+  watch(carrito, () => {
+    guardarLocalStorage()
+  }, {
+    deep: true, // Verificación profunda de igualdad | Tiene implicaciones en el performance cuando se tienen objetos muy grandes
+  })
   
   onMounted( () => {
     guitarras.value = db;
@@ -45,7 +53,6 @@
     }
 
     console.log(carrito.value);
-    guardarLocalStorage();
   }
 
   const aumentarCantidad = (id) => {
@@ -54,7 +61,6 @@
     if(cantidadGuitarras < 5) {
       carrito.value[productoIndex].cantidad++;
     }
-    guardarLocalStorage()
   }
 
   const disminuirCantidad = (id) => {
@@ -63,18 +69,15 @@
     if(cantidadGuitarras > 1) {
       carrito.value[productoIndex].cantidad--;
     } 
-    guardarLocalStorage()
   }
 
   const eliminarGuitarra = (id) => {
     const productoIndex = carrito.value.findIndex(producto => producto.id === id);
     carrito.value.splice(productoIndex, 1);
-    guardarLocalStorage()
   }
 
   const vaciarCarrito = () => {
     carrito.value = [];
-    guardarLocalStorage()
   }
 
 </script>
