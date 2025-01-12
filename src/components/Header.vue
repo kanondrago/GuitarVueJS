@@ -32,7 +32,7 @@
             <div class="row justify-content-center justify-content-md-between">
                 <div class="col-8 col-md-3">
                     <a href="index.html">
-                        <img class="img-fluid" src="/img/logo.svg" alt="imagen logo">
+                        <img class="img-fluid" src="/img/jimi.svg" alt="imagen logo">
                     </a>
                 </div>
                 <nav class="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
