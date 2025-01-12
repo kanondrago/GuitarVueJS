@@ -16,7 +16,20 @@
 
     // definiendo un objeto en especifico
     guitarra.value = db[3];
+
+    // recuperando lo del localStorage
+    const carritoLocalStorage = localStorage.getItem('carrito')
+
+    if(carritoLocalStorage) {
+      carrito.value = JSON.parse(carritoLocalStorage);
+    }
   })
+
+  // Guargando en localStorage
+  // No se puede almacenar arreglos en localStorage
+  const guardarLocalStorage = () => {
+    localStorage.setItem('carrito', JSON.stringify(carrito.value));
+  }
 
   const agregarCarrito = (guitarra) => {
 
@@ -32,6 +45,7 @@
     }
 
     console.log(carrito.value);
+    guardarLocalStorage();
   }
 
   const aumentarCantidad = (id) => {
@@ -40,6 +54,7 @@
     if(cantidadGuitarras < 5) {
       carrito.value[productoIndex].cantidad++;
     }
+    guardarLocalStorage()
   }
 
   const disminuirCantidad = (id) => {
@@ -48,15 +63,18 @@
     if(cantidadGuitarras > 1) {
       carrito.value[productoIndex].cantidad--;
     } 
+    guardarLocalStorage()
   }
 
   const eliminarGuitarra = (id) => {
     const productoIndex = carrito.value.findIndex(producto => producto.id === id);
     carrito.value.splice(productoIndex, 1);
+    guardarLocalStorage()
   }
 
   const vaciarCarrito = () => {
     carrito.value = [];
+    guardarLocalStorage()
   }
 
 </script>
