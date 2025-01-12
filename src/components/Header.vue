@@ -17,9 +17,14 @@
 
     // computed properties --> siempre tiene un return
     const totalPagar = computed(() => {
-        console.log('computed')
         return props.carrito.reduce((total, producto) => {
             return (total + producto.precio*producto.cantidad);
+        }, 0)
+    })
+
+    const cantidadProductos = computed(() => {
+        return props.carrito.reduce((total, producto) => {
+            return (total + producto.cantidad);
         }, 0)
     })
 
@@ -39,6 +44,9 @@
                     <div 
                         class="carrito"
                     >
+                        <div style="background-color: white; color: #E99400; font-weight: bold; border-radius: 50%; width: 28px; height: 28px;" class="text-center">
+                            {{ cantidadProductos }}
+                        </div>
                         <img class="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
 
                         <div id="carrito" class="bg-white p-3">
